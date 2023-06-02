@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="layout :: link-css">
+
+    </th:block>
+    <title>Document</title>
+</head>
+<body>
+<th:block th:replace="layout :: header">
+
+</th:block>
+<div class="container">
+
+    <h1 >
+        Edit book
+    </h1>
+    <form th:action="@{/books/edit}" th:object="${book}" method="post">
+        <input type="hidden" th:field="*{id}" id="blogId">
+        <div class="col-6 mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}">
+            <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </span>
+
+        </div>
+        <div class="col-6 mb-3">
+            <label for="author" class="form-label">Author:</label>
+            <input type="text" class="form-control" id="author" th:field="*{author}">
+        </div>
+        <div class="col-6 mb-3">
+            <label for="price" class="form-label">Price:</label>
+            <input type="text" class="form-control" id="price" th:field="*{price}">
+            <span  class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"> </span>
+
+        </div>
+        <div class="col-6 mb-3">
+            <select class="form-control select-checkbox" id="WhatToUpdate" th:field="*{category}" >
+                <label for="WhatToUpdate" class="form-label">Category:</label>
+                <th:block th:each="category : ${categories}">
+                    <option  th:value="${category.id}" th:text="${category.name}"  th:selected="${category.id == book.category.id} " />
+                </th:block>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"> </span>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    <a th:href="@{/books}">Back to List</a>
+</div>
+<th:block th:replace="layout  :: footer"></th:block>
+</body>
+</html>

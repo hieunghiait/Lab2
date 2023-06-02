@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="layout :: link-css">
+
+    </th:block>
+    <title>List Book</title>
+</head>
+<body>
+<th:block th:replace="layout :: header">
+
+</th:block>
+<div class="container">
+    <h1 th:text="${title}">
+    </h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <th th:text="${book.id}" scope="row"></th>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.category.name}"></td>
+            <td>
+                <a  class="btn btn-primary" th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a> ||
+                <a  th:href="@{/books/delete/{id}(id=${book.id})}"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <nav aria-label="Page navigation example">-->
+<!--        <ul class="pagination">-->
+<!--            <li class="page-item pagination" th:if="${books.totalPages > 0}"-->
+<!--                th:each="pageNumber : ${pageNumbers}">-->
+<!--                <a class="page-link" th:href="@{/books(page=${pageNumber},size=${books.size})}"-->
+<!--                   th:classappend="${pageNumber==books.number + 1} ? active"-->
+<!--                   th:text=${pageNumber}-->
+<!--                ></a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</div>-->
+<th:block th:replace="layout  :: footer"></th:block>
+</body>
+</html>
