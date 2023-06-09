@@ -1,6 +1,7 @@
 package com.example.b2.entities;
 
 import com.example.b2.validator.annotation.ValidCategoryId;
+import com.example.b2.validator.annotation.ValidUserId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,17 +18,22 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "Title must be not empty")
-    @Size(max = 50,min=1,message = "Title must be less than 50 characters")
+    @Size(max = 50, min = 1, message = "Title must be less than 50 characters")
     private String title;
     private String author;
     @NotNull(message = "Price is required")
     private Double price;
-    private boolean deleted=false;
+    private boolean deleted = false;
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ValidCategoryId
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ValidUserId
+    private User user;
 
 }

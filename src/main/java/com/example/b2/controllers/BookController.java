@@ -104,8 +104,6 @@ public class BookController {
             book.setAuthor(updatedBook.getAuthor());
             bookService.save(book);
             return "redirect:/books";
-
-
     }
 
     @GetMapping("/delete/{id}")
